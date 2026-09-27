@@ -49,7 +49,7 @@ const SECTION_ORDER: { key: string; label: string }[] = [
   { key: "handling", label: "Product Handling" },
   { key: "diapers", label: "Diapers & Sanitary Pads" },
   { key: "blocks", label: "Planogram Blocks" },
-  { key: "products", label: "Tracked Products" },
+  { key: "products", label: "Location" },
 ];
 
 // Sections kept expanded by default; everything else starts collapsed.
