@@ -4,7 +4,7 @@ const MESSAGES = [
   "Initializing Dashboard...",
   "Connecting to ArcGIS Online...",
   "Reading Feature Layer Data...",
-  "Processing Market Intelligence...",
+  "Processing Dubai Sample Data...",
   "Building Visualizations...",
   "Calculating KPIs...",
   "Preparing Analytics Dashboard...",

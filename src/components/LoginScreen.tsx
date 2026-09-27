@@ -53,20 +53,20 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
         {/* Top logos */}
         <div className="ls-left-logos">
           {BRAND_LOGO_SRC
-            ? <img src={BRAND_LOGO_SRC} alt="K-Group" className="ls-logo-brand" />
-            : <span className="ls-logo-brand" style={{ fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.04em", color: "#fff" }}>K‑GROUP</span>}
+            ? <img src={BRAND_LOGO_SRC} alt="Dubai Sample" className="ls-logo-brand" />
+            : <span className="ls-logo-brand" style={{ fontWeight: 800, fontSize: "1.4rem", letterSpacing: "0.04em", color: "#fff" }}>DUBAI</span>}
           <span className="ls-logo-sep">×</span>
           <img src="/adhoc-logo.png" alt="ADHOC" className="ls-logo-adhoc" />
         </div>
 
         {/* Bottom identity */}
         <div className="ls-left-identity">
-          <span className="ls-portal-label">ENTERPRISE PORTAL</span>
+          <span className="ls-portal-label">SAMPLE DASHBOARD</span>
           <h1 className="ls-left-title">
-            K-Group<br />
-            <span className="ls-left-title-accent">Market Intelligence</span>
+            Dubai UAE<br />
+            <span className="ls-left-title-accent">Sample Data</span>
           </h1>
-          <p className="ls-left-desc">Field data · Retail outlet coverage</p>
+          <p className="ls-left-desc">Outlet coverage · Market analytics</p>
         </div>
       </div>
 
