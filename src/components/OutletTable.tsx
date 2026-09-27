@@ -160,6 +160,13 @@ function asUrl(value: string): string | null {
   return null;
 }
 
+function buildGoogleMapsUrl(row: Record<string, unknown>): string | null {
+  const lat = Number(row["POINT_Y"]);
+  const lng = Number(row["POINT_X"]);
+  if (!lat || !lng || isNaN(lat) || isNaN(lng)) return null;
+  return `https://www.google.com/maps?q=${lat},${lng}`;
+}
+
 function isStatusField(alias: string): boolean {
   return alias.toLowerCase().includes("status");
 }
@@ -730,6 +737,8 @@ export default function OutletTable({
                     const val = cellValue(r[c.name]);
                     const isStatus = isStatusField(c.alias);
                     const url = asUrl(val);
+                    const isGoogleLoc = c.alias.toLowerCase() === "google link location";
+                    const googleUrl = isGoogleLoc ? buildGoogleMapsUrl(r) : null;
                     return (
                       <td key={c.name} className={isStatus ? `ot-status ${statusClass(val)}` : undefined}>
                         {url ? (
@@ -741,6 +750,16 @@ export default function OutletTable({
                             onClick={(e) => e.stopPropagation()}
                           >
                             Open link
+                          </a>
+                        ) : googleUrl ? (
+                          <a
+                            className="ot-link"
+                            href={googleUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Open in Maps
                           </a>
                         ) : (
                           val

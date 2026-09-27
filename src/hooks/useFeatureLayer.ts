@@ -333,7 +333,7 @@ export function useFeatureLayer(): FeatureLayerState {
 
         // Lean field set: what mapFeature reads to build an Outlet, plus the
         // default data-table columns. Extra fields are fetched on demand.
-        const leanFieldSet = new Set<string>([oidField, nameField]);
+        const leanFieldSet = new Set<string>([oidField, nameField, "POINT_X", "POINT_Y"]);
         for (const f of [
           districtField, regionField, govField, channelField, outletTypeField, segmentationField,
           statusField, addressField, phoneField, photoLinkField, arabicNameField, matchingStatusField,
