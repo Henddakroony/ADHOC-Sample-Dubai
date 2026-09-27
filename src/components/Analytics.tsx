@@ -195,14 +195,9 @@ export default function Analytics({ outlets, loading, onRefresh, compact = false
           icon={<svg viewBox="0 0 16 16" fill="none" width="18" height="18"><path d="M3 5.5V13h10V5.5" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/><path d="M1.5 3.5h13l.7 2a2 2 0 01-3.8.5 2 2 0 01-3.8 0 2 2 0 01-3.8 0L1.5 3.5z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/></svg>}
         />
         <KpiCard
-          label="Active" value={kpis.active.toLocaleString()} sub={`${kpis.activePct}% active rate`}
+          label="Successfully Surveyed" value={kpis.active.toLocaleString()} sub={`${kpis.activePct}% survey rate`}
           color="#22c55e"
           icon={<svg viewBox="0 0 16 16" fill="none" width="18" height="18"><circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.3"/><path d="M5.5 8.5l1.5 1.5 3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-        />
-        <KpiCard
-          label="Inactive" value={kpis.inactive.toLocaleString()} sub={total > 0 ? `${Math.round((kpis.inactive / total) * 100)}%` : "–"}
-          color="#ef4444"
-          icon={<svg viewBox="0 0 16 16" fill="none" width="18" height="18"><circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.3"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
         />
         <KpiCard
           label="Emirates" value={String(kpis.regions)} sub={`${kpis.districts} districts`}

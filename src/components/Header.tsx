@@ -126,8 +126,7 @@ export default function Header({
 
   const update = (key: keyof FilterState, value: string) => {
     const next = { ...sf, [key]: value };
-    if (key === "region") { next.governorate = "All"; next.district = "All"; }
-    if (key === "governorate") next.district = "All";
+    if (key === "region") { next.district = "All"; }
     if (key === "channel") next.outletType = "All";
     setFilters(next);
   };
@@ -158,7 +157,6 @@ export default function Header({
 
   const activeChips: { label: string; onRemove: () => void }[] = [];
   if (sf.region !== "All")         activeChips.push({ label: sf.region,        onRemove: () => update("region", "All") });
-  if (sf.governorate !== "All")    activeChips.push({ label: sf.governorate,   onRemove: () => update("governorate", "All") });
   if (sf.district !== "All")       activeChips.push({ label: sf.district,      onRemove: () => update("district", "All") });
   if (sf.channel !== "All")        activeChips.push({ label: sf.channel,       onRemove: () => update("channel", "All") });
   if (sf.outletType !== "All")     activeChips.push({ label: sf.outletType,    onRemove: () => update("outletType", "All") });
@@ -365,12 +363,11 @@ export default function Header({
           <FilterDropdown label="Matching Status" value={sf.matchingStatus} options={matchingStatusOptions} onChange={(v) => update("matchingStatus", v)} disabled={loading} icon={ICON_MATCHING} />
         )}
         <FilterDropdown label="Emirate"       value={sf.region}       options={regionOptions}       onChange={(v) => update("region", v)}       disabled={loading} icon={ICON_REGION} />
-        <FilterDropdown label="Governorate"  value={sf.governorate}  options={governorateOptions}  onChange={(v) => update("governorate", v)}  disabled={loading} icon={ICON_GOV} />
         {districtOptions.length > 1 && (
           <FilterDropdown label="District"    value={sf.district}     options={districtOptions}     onChange={(v) => update("district", v)}     disabled={loading} icon={ICON_DISTRICT} />
         )}
         {channelOptions.length > 1 && (
-          <FilterDropdown label="Channel"      value={sf.channel}      options={channelOptions}      onChange={(v) => update("channel", v)}      disabled={loading} icon={ICON_CHANNEL} />
+          <FilterDropdown label="English Area Type" value={sf.channel}      options={channelOptions}      onChange={(v) => update("channel", v)}      disabled={loading} icon={ICON_CHANNEL} />
         )}
         <FilterDropdown label="Outlet Type"  value={sf.outletType}   options={outletTypeOptions}   onChange={(v) => update("outletType", v)}   disabled={loading} icon={ICON_TYPE} />
         {segmentationOptions.length > 1 && (
