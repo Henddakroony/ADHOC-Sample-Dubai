@@ -8,27 +8,19 @@ const PAGE_SIZES = [15, 30, 50, 100];
 
 // Columns shown by default (matched by alias, case-insensitive). Everything
 // else is available through the column picker.
-const DEFAULT_ALIASES = new Set([
-  "english region",
-  "english outlet name",
+const DEFAULT_ALIAS_ORDER = [
+  "photo link",
+  "adhoc code",
   "arabic outlet name",
+  "english outlet name",
   "english outlet type",
-  "new safi segmentation",
-  "channel",
-  "english outlet status",
-  "photos link 2025",
-  // Store profile / registration columns requested for the default view.
-  "adhoc_code",
-  "chain / independent store",
-  "building number",
+  "adhoc segmentation",
+  "english status",
   "address",
-  "phone number - mobile1",
-  "contact person",
-  "national address",
-  "tax number",
-  "store license",
-  "commercial registration",
-]);
+  "google link location",
+  "telephone / cell phone",
+];
+const DEFAULT_ALIASES = new Set(DEFAULT_ALIAS_ORDER);
 
 // Field grouping for the column picker. Curated sections (Identity, Location,
 // Contact, Status …) use explicit alias sets; the large body of brand-specific
@@ -64,13 +56,15 @@ const SECTION_ORDER: { key: string; label: string }[] = [
 const CORE_OPEN = new Set(["identity", "location", "contact", "status"]);
 
 const IDENTITY_SET = new Set([
-  "objectid", "adhoc_code", "arabic outlet name", "english outlet name",
+  "objectid", "adhoc_code", "adhoc code", "arabic outlet name", "english outlet name",
   "arabic outlet type", "english outlet type", "adhoc segmentation", "channel",
-  "store location", "chain / independent store", "photos link 2025",
+  "english areatype", "outlet type", "outlet area",
+  "store location", "chain / independent store", "photos link 2025", "photo link",
 ]);
 const LOCATION_SET = new Set([
   "arabic region", "english region", "arabic gov", "english gov",
-  "zone_name", "building number", "address", "outlet area",
+  "emirate arabic name", "emirate english name", "district arabic name", "district english name",
+  "zone_name", "building number", "address", "google link location",
 ]);
 const REGISTRATION_SET = new Set([
   "arabic dis", "english dis", "national address", "postal code",
@@ -90,7 +84,7 @@ function classify(f: RawField): string {
   const a = f.alias.trim().toLowerCase();
   if (IDENTITY_SET.has(a)) return "identity";
   if (LOCATION_SET.has(a)) return "location";
-  if (a.startsWith("phone number") || a === "contact person") return "contact";
+  if (a.startsWith("phone number") || a === "contact person" || a === "telephone / cell phone" || a === "contact") return "contact";
   if (a.includes("status")) return "status";
   if (REGISTRATION_SET.has(a)) return "registration";
   if (STORE_PROFILE_SET.has(a)) return "store_profile";
@@ -264,10 +258,16 @@ export default function OutletTable({
     return () => document.removeEventListener("mousedown", onDown);
   }, [colsOpen]);
 
-  const activeCols = useMemo(
-    () => allFields.filter((f) => enabled.has(f.name)),
-    [allFields, enabled]
-  );
+  const activeCols = useMemo(() => {
+    const cols = allFields.filter((f) => enabled.has(f.name));
+    const orderMap = new Map(DEFAULT_ALIAS_ORDER.map((a, i) => [a, i]));
+    cols.sort((a, b) => {
+      const ia = orderMap.get(a.alias.toLowerCase()) ?? 999;
+      const ib = orderMap.get(b.alias.toLowerCase()) ?? 999;
+      return ia - ib;
+    });
+    return cols;
+  }, [allFields, enabled]);
 
   // Which of the currently visible columns haven't actually been fetched into
   // `rows` yet. Selecting a column outside the lean initial set kicks off a
